@@ -1,5 +1,6 @@
 package org.smart4j.plugin.security;
 
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
 import org.apache.shiro.mgt.CachingSecurityManager;
 import org.apache.shiro.mgt.RealmSecurityManager;
@@ -23,10 +24,10 @@ public class SmartSecurityFilter extends ShiroFilter {
     public void init() throws Exception {
         super.init();
         WebSecurityManager webSecurityManager = super.getSecurityManager();
-        //设置 Realms 可同时支持多个 Realm 并按照先后顺序用逗号分隔
-        setRealm(webSecurityManager);
         //设置 Cache 减少数据库查询次数 降低 I/O 访问
         setCache(webSecurityManager);
+        //设置 Realms 可同时支持多个 Realm 并按照先后顺序用逗号分隔
+        setRealm(webSecurityManager);
     }
 
     private void setRealm(WebSecurityManager webSecurityManager) {
